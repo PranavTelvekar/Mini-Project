@@ -1,0 +1,11 @@
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-img-top{
+    font-size: 400 !important;
+}

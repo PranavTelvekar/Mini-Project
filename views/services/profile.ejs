@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%= provider.serviceCategory %></h1>
+    <h4>Service Provider Name :<%= provider.username %></h4>
+    <p> Work Experience :<%= provider.workDescription %></p>
+    <h6>Experience : <%= provider.experience  %></h6>
+    <% if(currentUser&&currentUser._id.equals(provider._id)){ %>
+        <a href="/slot/<%= provider._id %>"><button>Add Slot</button></a>
+    <% } %>
+
+    <% if(provider.slots.length){ %>
+        <h1>Created Slots Are Here</h1>
+
+        <% for(slot of provider.slots){ %>
+            <p>Date: <%= slot.date %></p>
+            <p>Start Time: <%= slot.startTime  %></p>
+            <p>End Time: <%= slot.endTime %></p>
+            <p>Price: <%= slot.price %></p>
+            <p>More Info : <%= slot.additionalInfo  %></p>
+            <br>
+            <% if(currentUser&&currentUser._id.equals(provider._id)){ %>
+                <form method="post" action="/slot/<%= slot._id %>/<%= provider._id %>?_method=DELETE">
+                    <button>Delete Slot</button>
+                </form>
+            <% }%>
+            <a href="/booking/<%= slot._id %>"><button>Book Now</button></a>
+            <p>Number Of applicantas : <%= slot.numberOfBookings %></p>
+            <% if(slot.numberOfBookings>0) {%>
+                here are customer who book this slot
+                <% for(booking of slot.booking){ %>
+                    <p>Customer Name : <%= booking.user.username %></p>
+                    <p>Problem Description : <%= booking.problemDescription %></p>
+                    <p>Status Is : <%= booking.status %></p>
+                    <button>Confirm Booking</button>
+                    <button>Cancele Booking</button>
+                <% } %>
+            <% } %>
+            
+            <hr>
+        <% } %>
+    <% } %>
+    <% if(provider.bookings.length) {%>
+        <h1>Here are booked slots</h1>
+        <% for(booking of provider.bookings){ %>
+            <p>Customer Name : <%= booking.user.username %></p>
+            <p>Problem Description : <%= booking.problemDescription %></p>
+            <p>Status Is : <%= booking.status %></p>
+            <button>Confirm Booking</button>
+            <button>Cancele Booking</button>
+        <% } %>
+    <% } %>            
+        <% if(currentUser&&currentUser._id){ %>
+            <h1>Give Here Review</h1>
+            <form action="/review/<%= provider._id %>" method="post">
+                <textarea name="reviewText" style="width: 200px; height: 100px;"></textarea>
+                <input type="range" name="rating" id="" min="1" max="5">
+                <button>Submit</button>
+            </form>
+        <% } %>
+
+    <% if(provider.reviews.length){ %>
+        <h2>here are reviews</h2>
+        <% for(review of provider.reviews){ %>
+            <div>
+                <div>
+                    Created By :<%= review.user.username %>
+                </div>
+                <div>
+                    <%=review.rating %>
+                </div>
+                <div>
+                    <%=review.reviewText %>
+                </div>
+            </div>
+            <% if(currentUser&&currentUser._id.equals(review.user._id)) {%>
+                <form method="post" action="/review/<%= provider._id %>/<%= review._id %>?_method=DELETE">
+                    <button>Delete</button>
+                </form>
+            <% } %>
+            <hr>
+        <% } %>
+    <% } %>
+    
+
+</body>
+</html>

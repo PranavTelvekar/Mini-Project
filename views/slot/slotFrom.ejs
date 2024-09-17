@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Creation Form</title>
+</head>
+<body>
+
+    <h1>Create Slot for Service Provider</h1>
+
+    <form id="slotForm" action="/slot/<%= provider._id %>?_method=put" method="POST">
+        <!-- Date -->
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date" required><br><br>
+
+        <!-- Start Time -->
+        <label for="startTime">Start Time:</label><br>
+        <input type="time" id="startTime" name="startTime" required><br><br>
+
+        <!-- End Time -->
+        <label for="endTime">End Time:</label><br>
+        <input type="time" id="endTime" name="endTime" required><br><br>
+
+        <!-- Price -->
+        <label for="price">Price (Optional):</label><br>
+        <input type="number" id="price" name="price" min="0" step="0.01" placeholder="Service Price"><br><br>
+
+        <!-- Additional Info -->
+        <label for="additionalInfo">Additional Info (Optional):</label><br>
+        <textarea id="additionalInfo" name="additionalInfo" placeholder="Any extra notes or instructions"></textarea><br><br>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Create Slot">
+    </form>
+</body>
+</html>

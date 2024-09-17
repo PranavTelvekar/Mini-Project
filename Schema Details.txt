@@ -1,0 +1,78 @@
+1. User Schema
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  contactNumber: { type: String, required: true },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String,
+  },
+  bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }],
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+});
+
+
+
+2. ServiceProvider Schema
+
+
+const ServiceProviderSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  contactNumber: { type: String, required: true },
+  serviceCategory: { type: String, enum: ['Plumber', 'Electrician', 'Painter', 'Nursing Home', 'Beauty'], required: true },
+  experience: { type: Number, required: true }, // years of experience
+  serviceArea: {
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+  },
+  slots: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Slot' }],
+  bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }],
+  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+  rating: { type: Number, default: 0 }, // aggregated rating from reviews
+});
+
+
+
+3. Slot Schema
+
+
+const SlotSchema = new mongoose.Schema({
+  serviceProvider: { type: mongoose.Schema.Types.ObjectId, ref: 'ServiceProvider', required: true },
+  date: { type: Date, required: true },
+  time: { type: String, required: true }, // format: 'HH:mm'
+  isBooked: { type: Boolean, default: false },
+});
+
+
+
+
+4. Booking Schema
+
+
+
+const BookingSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  serviceProvider: { type: mongoose.Schema.Types.ObjectId, ref: 'ServiceProvider', required: true },
+  slot: { type: mongoose.Schema.Types.ObjectId, ref: 'Slot', required: true },
+  problemDescription: { type: String, required: true }, // details about the user's problem
+  bookingDate: { type: Date, default: Date.now },
+  status: { type: String, enum: ['Pending', 'Confirmed', 'Cancelled'], default: 'Pending' },
+});
+
+
+
+5. Review Schema
+
+
+const ReviewSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  serviceProvider: { type: mongoose.Schema.Types.ObjectId, ref: 'ServiceProvider', required: true },
+  rating: { type: Number, min: 1, max: 5, required: true }, // rating out of 5
+  reviewText: { type: String },
+  createdAt: { type: Date, default: Date.now },
+});
