@@ -6,50 +6,81 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <title>Sign Up</title>
     <style>
-        .address{
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .address {
             display: flex;
-            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <form class="col-4 offset-4 mt-5" action="/user/signup" method="POST">
-        <div class="mb-5 ">
-            <h3>Sign Up As User</h3>
+    <div class="container">
+        <div class="form-container">
+            <h3 class="text-center mb-4">Sign Up As User</h3>
+
+            <form action="/user/signup" method="POST">
+                <!-- Username -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input name="username" type="text" class="form-control" id="username" placeholder="Enter Username" required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email" required>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Enter Password" required>
+                </div>
+
+                <!-- Contact Number -->
+                <div class="mb-3">
+                    <label for="contactNumber" class="form-label">Contact Number</label>
+                    <input name="contactNumber" type="tel" class="form-control" id="contactNumber" placeholder="Enter Contact Number" required>
+                </div>
+
+                <!-- Address -->
+                <div class="address mb-3">
+                    <div class="flex-fill">
+                        <label for="street" class="form-label">Street</label>
+                        <input name="address[street]" type="text" class="form-control" id="street" placeholder="Enter Street" required>
+                    </div>
+                    <div class="flex-fill">
+                        <label for="city" class="form-label">City</label>
+                        <input name="address[city]" type="text" class="form-control" id="city" placeholder="Enter City" required>
+                    </div>
+                    <div class="flex-fill">
+                        <label for="state" class="form-label">State</label>
+                        <input name="address[state]" type="text" class="form-control" id="state" placeholder="Enter State" required>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
         </div>
-        <div class="mb-3 ">
-            <label for="exampleFormControlInput1" class="form-label">Username</label>
-            <input name="username" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Username">
-        </div>
-        <div class="mb-3 ">
-            <label for="exampleFormControlInput2" class="form-label">Email</label>
-            <input name="email" type="email" class="form-control" id="exampleFormControlInput2" placeholder="Enter Email">
-        </div>
-        <div class="mb-3 ">
-            <label for="exampleFormControlInput3" class="form-label">Password</label>
-            <input name="password" type="password" class="form-control" id="exampleFormControlInput3" placeholder="Enter Password">
-        </div>
-        <div class="mb-3 ">
-            <label for="exampleFormControlInput4" class="form-label">Contact Number</label>
-            <input name="contactNumber" type="number" class="form-control" id="exampleFormControlInput4" placeholder="Enter Contact Number">
-        </div>
-        <div class="address" >
-            <div class="mb-3 col-4">
-                <label for="exampleFormControlInput5" class="form-label">Street</label>
-                <input name="address[street]" type="text" class="form-control" id="exampleFormControlInput5" placeholder="Enter Street">
-            </div>
-            <div class="mb-3 col-3">
-                <label for="exampleFormControlInput6" class="form-label">City</label>
-                <input name="address[city]" type="text" class="form-control" id="exampleFormControlInput6" placeholder="Enter City">
-            </div>
-            <div class="mb-3 col-4">
-                <label for="exampleFormControlInput7" class="form-label">State</label>
-                <input name="address[state]" type="text" class="form-control" id="exampleFormControlInput7" placeholder="Enter State">
-            </div>
-        </div>
-        <br>
-        <button class="btn btn-primary offset-5">Sign Up</button>
-    </form>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
