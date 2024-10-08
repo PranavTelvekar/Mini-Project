@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,25 +19,8 @@
             border-radius: 0.5rem;
         }
 
-        .nav-link {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .nav-link:hover {
-            text-decoration: underline;
-        }
-
         nav {
             padding: 1rem 0;
-        }
-
-        h4 {
-            font-size: 1.2rem;
-        }
-
-        .card-body {
-            padding: 1rem;
         }
 
         .btn-primary {
@@ -44,65 +28,110 @@
             border: none;
         }
 
+        /* Add a right margin specifically for the signup button */
+        #signupDropdown {
+            margin-right: 85px; /* Adjust this value to increase/decrease space */
+        }
+
+        /* Additional spacing between buttons */
+        .dropdown,
+        .btn {
+            margin-right: 10px;
+        }
+
+        .dropdown-menu {
+            margin-top: 0.25rem;
+        }
+
+        /* Prevent content push-down by setting a max-height */
+        .dropdown-menu {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
         @media (max-width: 768px) {
             nav {
                 flex-direction: column;
                 align-items: center;
-            }
-
-            nav a {
-                margin-bottom: 0.5rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <nav class="d-flex justify-content-around">
-        <% if(!currentUser){ %>
-        <a class="nav-link" href="/services/signup">
-            <h4>SignUp As Service Provider</h4>
-        </a>
-        <a class="nav-link" href="/services/login">
-            <h4>Login As Service Provider</h4>
-        </a>
-        <a class="nav-link" href="/user/signup">
-            <h4>SignUp (User)</h4>
-        </a>
-        <a class="nav-link" href="/user/login">
-            <h4>Login (User)</h4>
-        </a>
-        <% }else{ %>
-        <a class="nav-link" href="/logout">
-            <h4>Log Out</h4>
-        </a>
-        <% } %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Service Providers</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="me-auto"></div>
+
+                <% if (!currentUser) { %>
+                <!-- Updated Login Button Structure -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="loginDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+                        <li><a class="dropdown-item" href="/user/login">User Login</a></li>
+                        <li><a class="dropdown-item" href="/services/login">Service Provider Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Updated Signup Button Structure with more right margin -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="signupDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Sign Up
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+                        <li><a class="dropdown-item" href="/user/signup">User Sign Up</a></li>
+                        <li><a class="dropdown-item" href="/services/signup">Service Provider Sign Up</a></li>
+                    </ul>
+                </div>
+                <% } else { %>
+
+                <!-- Logout Button -->
+                <a href="/logout">
+                    <button class="btn btn-outline-primary" type="button" id="logoutButton">
+                        Logout
+                    </button>
+                </a>
+                <% } %>
+            </div>
+        </div>
     </nav>
 
-    <% if(success){ %>
+    <!-- Only display the success alert if there's a success message -->
+    <% if (success) { %>
     <div class="alert alert-success" role="alert">
         <h1><%= success %></h1>
     </div>
     <% } %>
 
     <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <% for(let service of services){ %>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <% for (let service of services) { %>
             <div class="col">
                 <div class="profile-card card h-100">
                     <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
                         class="card-img-top" alt="Profile">
                     <div class="card-body">
-                        <h5 class="card-title"><%= service.serviceCategory %></h5>
+                        <h5 class="card-title">Service Category Here</h5>
                         <p class="card-text">
-                            <%= service.username %> <br>
-                            <%= service.serviceArea.city %>, <%= service.serviceArea.state %>
+                            Username Here <br>
+                            City, State Here
                         </p>
-                        <a href="/services/<%= service._id %>" class="btn btn-primary">See Profile</a>
+                        <a href="/services/serviceIdHere" class="btn btn-primary">See Profile</a>
                     </div>
                 </div>
             </div>
             <% } %>
+            <!-- ... other profile cards ... -->
         </div>
     </div>
 
